@@ -8,6 +8,10 @@ class CBOR::Encoder
   def initialize(@io : IO = IO::Memory.new)
   end
 
+  def write(value : Any)
+    write value.raw
+  end
+
   def write(value : Nil | Nil.class, use_undefined : Bool = false)
     write(use_undefined ? SimpleValue::Undefined : SimpleValue::Null)
   end

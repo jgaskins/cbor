@@ -29,13 +29,15 @@ class CBOR::Decoder
       token.value.to_t
     when Token::ArrayT
       finish_token!
-      arr = Array(Type).new
-      consume_sequence(token.size) { arr << read_value }
+      arr = Array(Any).new
+      consume_sequence(token.size) { arr << Any.new(read_value) }
       arr
     when Token::MapT
       finish_token!
-      map = Hash(Type, Type).new
-      consume_sequence(token.size) { map[read_value] = read_value }
+      map = Hash(Any, Any).new
+      consume_sequence(token.size) do
+        map[Any.new(read_value)] = Any.new(read_value)
+      end
       map
     else
       unexpected_token(token)
