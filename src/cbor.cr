@@ -96,7 +96,7 @@ class String
   def_equals
 end
 
-struct Bytes
+struct Slice(T)
   def_equals
 end
 
